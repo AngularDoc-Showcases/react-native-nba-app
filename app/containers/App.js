@@ -6,8 +6,8 @@ import React, {
   StyleSheet,
   PropTypes
 } from 'react-native'
-import {connect} from 'react-redux/native'
-import {bindActionCreators} from 'redux'
+import { connect } from 'react-redux/native'
+import { bindActionCreators } from 'redux'
 
 import applicationActions from '../actions/application'
 import gameActions from '../actions/game'
@@ -18,25 +18,25 @@ import Game from './Game'
 import Player from './Player'
 import Team from './Team'
 
-export default class App extends Component {
+export class App extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       tab: null
     }
   }
 
-  componentWillReceiveProps (props) {
-    const {application} = props
+  componentWillReceiveProps(props) {
+    const { application } = props
     this.setState({
       tab: application.tab
     })
   }
 
-  render () {
-    const {tab} = this.state
-    const {game, player, team, gameActions, playerActions, teamActions} = this.props
+  render() {
+    const { tab } = this.state
+    const { game, player, team, gameActions, playerActions, teamActions } = this.props
 
     return (
       <View style={styles.container}>
