@@ -1,8 +1,6 @@
 'use strict'
 
-import createReducer from '../utils/create-reducer'
-
-import {PLAYER} from '../constant'
+import { PLAYER } from '../constant'
 
 const initialState = {
   isLoaded: false,
@@ -10,19 +8,20 @@ const initialState = {
   data: []
 }
 
-const actionHandler = {
-  [PLAYER.LIST]: (state, action) => {
-    return {
-      isLoaded: true,
-      data: action.data
-    }
-  },
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case PLAYER.LIST:
+      return {
+        isLoaded: true,
+        data: action.data
+      };
 
-  [PLAYER.RECENT]: (state, action) => {
-    return {
-      recent: action.data
-    }
+    case PLAYER.RECENT:
+      return {
+        recent: action.data
+      };
+
+    default:
+      return state;
   }
 }
-
-export default createReducer(initialState, actionHandler)

@@ -1,8 +1,6 @@
 'use strict'
 
-import createReducer from '../utils/create-reducer'
-
-import {APP} from '../constant'
+import { APP } from '../constant'
 
 /* First navigatore of each tab named [tab]Index */
 const initialState = {
@@ -10,19 +8,19 @@ const initialState = {
   navigator: 'gameIndex'
 }
 
-const actionHandler = {
-  [APP.TAB]: (state, action) => {
-    return Object.assign({}, state, {
-      tab: action.data,
-      navigator: action.data + 'Index'
-    })
-  },
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case APP.TAB:
+      return Object.assign({}, state, {
+        tab: action.data,
+        navigator: action.data + 'Index'
+      });
 
-  [APP.NAVIGATION]: (state, action) => {
-    return Object.assign({}, state, {
-      navigator: action.data
-    })
+    case APP.NAVIGATION:
+      return Object.assign({}, state, {
+        navigator: action.data
+      });
+    default:
+      return state;
   }
 }
-
-export default createReducer(initialState, actionHandler)

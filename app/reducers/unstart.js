@@ -1,8 +1,6 @@
 'use strict'
 
-import createReducer from '../utils/create-reducer'
-
-import {GAME} from '../constant'
+import { GAME } from '../constant'
 
 const initialState = {
   data: [
@@ -22,13 +20,14 @@ const initialState = {
   ]
 }
 
-const actionHandler = {
-  [GAME.INFO]: (state, action) => {
-    return Object.assign({}, state, {
-      gameDate: action.data.gameDate,
-      data: action.data.unstart
-    })
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case GAME.INFO:
+      return Object.assign({}, state, {
+        gameDate: action.data.gameDate,
+        data: action.data.unstart
+      });
+    default:
+      return state;
   }
 }
-
-export default createReducer(initialState, actionHandler)

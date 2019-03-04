@@ -4,9 +4,7 @@
 
 'use strict'
 
-import createReducer from '../utils/create-reducer'
-
-import {GAME} from '../constant'
+import { GAME } from '../constant'
 
 const initialState = {
   loaded: false,
@@ -18,13 +16,14 @@ const initialState = {
   }
 }
 
-const actionHandler = {
-  [GAME.STANDING]: (state, action) => {
-    return {
-      loaded: true,
-      data: action.data
-    }
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case GAME.STANDING:
+      return {
+        loaded: true,
+        data: action.data
+      };
+    default:
+      return state;
   }
 }
-
-export default createReducer(initialState, actionHandler)

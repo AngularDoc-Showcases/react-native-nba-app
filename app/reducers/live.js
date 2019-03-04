@@ -1,8 +1,6 @@
 'use strict'
 
-import createReducer from '../utils/create-reducer'
-
-import {GAME} from '../constant'
+import { GAME } from '../constant'
 
 const initialState = {
   data: [
@@ -31,31 +29,33 @@ const initialState = {
   ]
 }
 
-const actionHandler = {
-  [GAME.INFO]: (state, action) => {
-    return Object.assign({}, state, {
-      gameDate: action.data.gameDate,
-      data: action.data.live
-    })
-  },
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case GAME.INFO:
+      return Object.assign({}, state, {
+        gameDate: action.data.gameDate,
+        data: action.data.live
+      });
 
-  [GAME.DETAIL]: (state, action) => {
-    if (action.gameType !== 'live') return state
-    let newState = Object.assign([], state)
-    state.data.some(game => {
-      if (game.id === action.gameId) {
-        game.detail = game.detail || {}
-        game.detail.data = action.data
-        game.detail.loaded = true
-        game.process = action.data.process
-        game.home.score = action.data.home.score
-        game.visitor.score = action.data.visitor.score
-        return true
-      }
-      return false
-    })
-    return newState
+    case GAME.DETAIL: {
+      if (action.gameType !== 'live') return state
+      let newState = Object.assign([], state)
+      state.data.some(game => {
+        if (game.id === action.gameId) {
+          game.detail = game.detail || {}
+          game.detail.data = action.data
+          game.detail.loaded = true
+          game.process = action.data.process
+          game.home.score = action.data.home.score
+          game.visitor.score = action.data.visitor.score
+          return true
+        }
+        return false
+      })
+      return newState
+    };
+
+    default:
+      return state;
   }
 }
-
-export default createReducer(initialState, actionHandler)
